@@ -1,5 +1,5 @@
 /*
- * RISC-V 3 address code to Stack based VM code: CS4100 Computer System Design RISC-V Project
+ * RISC-V Stack based VM code to RISC-V assembly language code: CS4100 Computer System Design RISC-V Project
  *
  *  Created on: November 9, 2020
  *     Authors: ABHISHEK KAUSHIK CS17B001
