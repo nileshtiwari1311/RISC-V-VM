@@ -1,0 +1,29 @@
+_L1:
+function func 2 a b
+_t1 = d + 2
+c = _t1
+_t2 = a + b
+return _t2
+endfunc
+
+_L4:
+function main 3
+int a
+int b
+int c
+_t1 = a == b
+If _t1 goto _L2
+pushParam a
+_t1 = b + 3
+pushParam _t1
+_t1 = call func 2
+a = _t1
+goto _L3
+_L2:
+_t1 = a + b
+a = _t1
+_t2 = b + c
+b = _t2
+_L3:
+return 0
+endfunc
