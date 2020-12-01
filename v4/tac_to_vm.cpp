@@ -1,7 +1,7 @@
 /*
  * RISC-V 3 address code to Stack based VM code: CS4100 Computer System Design RISC-V Project
  *
- *  Created on: November 30, 2020
+ *  Created on: December 1, 2020
  *     Authors: ABHISHEK KAUSHIK CS17B001 cs17b001@iitp.ac.in
                 NILESH TIWARI CS17B022 cs17b022@iitp.ac.in
                 VIKAS KUMAR CS17B030 cs17b030@iitp.ac.in
@@ -18,7 +18,7 @@ class function_class
     public:
     string label,name;
     int local_variable_count=0, temp_variables_count=0;
-    unordered_map<string,int> arguments, temp_variables, local_variables;
+    unordered_map<string,int> arguments = {}, temp_variables = {}, local_variables = {};
 };
 
 bool is_name_part(char c)
@@ -71,12 +71,15 @@ void filter_line(vector<string> &names)
 
 bool does_variable_exist(function_class &current_function, string &current_string)
 {
-    if(current_function.arguments.count(current_string))
+    if(current_function.arguments.count(current_string)){
         return 1;
-    if(current_function.local_variables.count(current_string))
+    }
+    if(current_function.local_variables.count(current_string)){
         return 1;
-    if(current_function.temp_variables.count(current_string))
-        return 1;                
+    }
+    if(current_function.temp_variables.count(current_string)){
+        return 1;  
+    }          
     return 0;
 }
 
@@ -113,7 +116,7 @@ int main()
     string mytext;
 
     ofstream writefile("vm.txt"); 
-    ifstream Myreadfile("tac2.txt");
+    ifstream Myreadfile("tac.txt");
 
     unordered_map<string,string> symbol_to_name=
     { 
@@ -143,7 +146,6 @@ int main()
     string function_label;
 
     vector<function_class> functions;
-
 
     while( getline(Myreadfile,mytext))
     {
@@ -192,11 +194,6 @@ int main()
             continue;
         }    
 
-        else if(names.size()==2 || names.size()==4)
-        {
-            continue;
-        }
-
         else if(names[0]==english_function)
         {
             function_name_to_label[names[1]]=function_label;
@@ -210,6 +207,10 @@ int main()
             {
                 functions.back().arguments[names[i]]=i-3;
             }
+            continue;
+        }
+        else if(names.size()==2 || names.size()==4)
+        {
             continue;
         }
         else if(names.size()==5 && names[2]==english_call)
@@ -240,10 +241,10 @@ int main()
         functions[i].local_variable_count=functions[i].local_variables.size();
         functions[i].temp_variables_count=functions[i].temp_variables.size();
     }
+
     Myreadfile.clear();
     Myreadfile.seekg(0, Myreadfile.beg);
 
-    //cout<<"opening file again"<<endl;
     string main_name=function_name_to_label["main"];
     main_name.pop_back();
     writefile<<"goto "<<main_name<<endl;
