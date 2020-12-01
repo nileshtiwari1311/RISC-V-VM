@@ -87,7 +87,7 @@ int main()
 	riscv << "add s7, zero, zero" << endl;
 	riscv << "add sp, zero, zero" << endl;
 	riscv << "add s8, zero, zero" << endl;
-	riscv << "addi ra, zero, _#End" << endl;
+	riscv << "addi ra, zero, _$End" << endl;
 	riscv << "sw ra, 0(sp)" << endl;
 	riscv << "addi sp, sp, 4" << endl;
 	// push LCL
@@ -376,7 +376,7 @@ int main()
 
 			// push retAddr
 			func_ret++;
-			riscv << "addi ra, zero, _#Ret" << func_ret << endl;
+			riscv << "addi ra, zero, _$Ret" << func_ret << endl;
 			riscv << "sw ra, 0(sp)" << endl;
 			riscv << "addi sp, sp, 4" << endl;
 			// push LCL
@@ -397,7 +397,7 @@ int main()
 			riscv << "add s6, sp, zero" << endl; // set LCL = SP
 
 			riscv << "jal zero, " << temp2 << endl; // goto function label
-			riscv << "_#Ret" << func_ret << ":" << endl;
+			riscv << "_$Ret" << func_ret << ":" << endl;
 			riscv << endl;
 
 			prev_instr = temp1;
@@ -492,7 +492,7 @@ int main()
 		}
 	}
 
-	riscv << "_#End:" << endl;
+	riscv << "_$End:" << endl;
 
 	vm.close();
 	riscv.close();
